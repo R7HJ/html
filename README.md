@@ -1,1 +1,1 @@
-my site here [r7hj.github.io](https://r7hj.github.io/my-site/)
+Здесь находятся мои статьи и ссылки [r7hj.github.io](https://r7hj.github.io/my-site/)
