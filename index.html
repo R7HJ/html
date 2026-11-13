@@ -4,158 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'><text y='.9em' font-size='90'>📻</text></svg>">
-    <title>R7HJ</title>
+    <title>R7HJ — Вести эфира</title>
     <style>
         :root {
-            /* Новая темная цветовая схема в тон карте */
-            --bg-color: #0b1320; 
-            --text-color: #cbd5e1;
-            --accent-color: #60a5fa;
-            --border-color: #1e293b;
-            --container-width: 800px;
+            --paper: #f6f1e4;
+            --ink: #221f1a;
+            --ink-soft: #5a5344;
+            --line: #221f1a;
+            --accent: #8f2b1e;   /* газетный красный */
+            --serif: "PT Serif", Georgia, "Times New Roman", serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            /* Легкий градиент для глубины космоса */
-            background-image: radial-gradient(circle at center, #1e293b 0%, #0b1320 100%);
-            background-attachment: fixed;
-            color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
+            font-family: var(--serif);
+            background: var(--paper);
+            /* лёгкая текстура бумаги */
+            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0 1px, transparent 1px 3px);
+            color: var(--ink);
+            line-height: 1.55;
         }
 
-        .container {
-            width: 100%;
-            max-width: var(--container-width);
+        .paper {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        /* ---------- ШАПКА ---------- */
+        .masthead {
             text-align: center;
+            border-bottom: 3px solid var(--line);
+            padding-bottom: 12px;
         }
-
-        h2 {
-            font-size: 2.0rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            letter-spacing: -0.02em;
-            color: #aaa;
-        }
-
-        /* Двухколоночная сетка с вертикальным разделителем */
-        .links-grid {
-            display: grid;
-            grid-template-columns: 1fr 1px 1fr;
-            gap: 0 3rem;
-            text-align: left;
-        }
-
-        .column {
+        .masthead .topline {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 5px;
+            margin-bottom: 14px;
+        }
+        .masthead h1 {
+            font-size: clamp(2.6rem, 9vw, 4.2rem);
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            line-height: 1;
+        }
+        .masthead h1 span {
+            color: var(--accent);
+        }
+        .masthead .motto {
+            font-style: italic;
+            color: var(--ink-soft);
+            margin-top: 8px;
+            font-size: 0.95rem;
         }
 
-        /* Тонкая сплошная линия-разделитель */
-        .divider {
-              width: 2px;
-              background: linear-gradient(to bottom, transparent, #60a5fa 20%, #93c5fd 50%, #60a5fa 80%, transparent);
-              box-shadow: 0 0 12px rgba(96, 165, 250, 0.55);
-              border-radius: 2px;
 
+        /* ---------- СТАТЬИ ---------- */
+        article {
+            margin-bottom: 40px;
+            break-inside: avoid;
         }
+        article:last-child { margin-bottom: 0; }
 
-        a {
-            color: var(--accent-color);
+        article h2 {
+            font-size: 1.7rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        article h2 a {
+            color: var(--ink);
             text-decoration: none;
-            font-size: 1.125rem;
-            padding: 0.5rem 0;
-            transition: all 0.2s ease;
+        }
+        article h2 a:hover { color: var(--accent); }
+
+        .rubric {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .rubric::before, .rubric::after {
+            content: " — ";
+            color: var(--ink-soft);
         }
 
-        a:hover { 
-            color: #93c5fd; 
-            text-decoration: underline; 
+        .lede {
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+        .lede::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            float: left;
+            line-height: 0.9;
+            padding: 2px 2px 0 0;
         }
 
-        /* Стили для картинки, чтобы она гармонично вписывалась */
-        .map-container {
-            margin-top: 3rem;
-            display: flex;
-            justify-content: center;
+        article::after {
+            content: "";
+            display: block;
+            border-bottom: 1px solid var(--ink-soft);
+            opacity: 0.4;
+            margin-top: 26px;
         }
 
-        .map-image {
-            width: 100%;
-            max-width: 700px;
-            height: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-style: italic;
+            color: var(--ink-soft);
+            font-size: 0.85rem;
+            padding-top: 12px;
         }
 
-        /* Адаптив для смартфонов */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.75rem; margin-bottom: 2rem; }
-            
-            .links-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem 0;
-                text-align: center;
-            }
-
-            .column { align-items: center; }
-
-            /* На мобильном разделитель становится горизонтальной линией */
-            .divider {
-                width: 100%;
-                height: 1px;
-                min-height: auto;
-            }
+        @media (max-width: 640px) {
+            .projects ul { columns: 1; }
+            .masthead .topline { font-size: 0.6rem; letter-spacing: 0.12em; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>R7HJ на GitHub</h2>
-        
-        <div class="links-grid">
-            <!-- Левый столбец -->
-            <nav class="column" aria-label="Проекты">
-                <!-- a href="http://kavkaz.qrz.ru/">сайт kavkaz.qrz.ru</a -->
-                <a href="//www.qrz.com/db/R7HJ">Страничка R7HJ на qrz.com</a>
-				<a href="http://176.192.125.149:88/wsjtx.html">WSJT-X споты от R7HJ/0 из QP52..</a>
-                <!-- a href="https://rlsk.ucoz.ru/">Радиолюбители Ставропольского края</a -->
-				<a href=""></a>
-            </nav>
+<div class="paper">
 
-            <!-- Разделитель -->
-            <div class="divider" role="separator"></div>
-
-            <!-- Правый столбец -->
-            <nav class="column" aria-label="Ресурсы">
-				<a href="//github.com/R7HJ/cw-beacon">Телеграфный маяк на Arduino Pro Mini</a>
-				<a href="//github.com/R7HJ/pty-bridge">Создаём пару виртуальных портов</a>
-				<a href="https://github.com/R7HJ/YSF_Reflector_Dashboard">YSF Dashboard на PHP 8</a>
-				<!-- a href="https://github.com/g4klx">Jonathan Naylor (g4klx) на GitHub</a -->
-                <!-- a href="//www.radioid.net/">регистрация на radioid</a -->
-                <!-- a href="//dvref.com/">регистрация рефлекторов на dvref</a -->
-				<!-- a href="//brandmeister.network/">радиолюбительская сеть brandmeister</a -->
-				<!-- a href="http://176.192.125.149:88/">радиолюбительский сервер rn6ljt</a -->
-				<a href=""></a>
-            </nav>
+    <!-- ================== ШАПКА ================== -->
+    <header class="masthead">
+        <div class="topline">
+            <span>LN05XA</span>
+            <span>Независимое издание одного оператора</span>
         </div>
+        <h1>R7<span>HJ</span></h1>
+        <!-- div class="motto">«73! Да будет хороший эфир»</div -->
+    </header>
 
-        
-        <!-- Обертка для картинки -->
-        <div class="map-container">
-            <img src="map.webp" alt="Карта активности R7HJ" class="map-image">
-        </div>
+<br>
+  
+    <!-- ================== СТАТЬЯ ==================
+         Чтобы добавить новую статью — скопируйте блок <article> целиком
+         и вставьте ВЫШЕ предыдущего. Свежая всегда сверху.
+    ================================================ -->
 
-    </div>
+    <article>
+        <div class="rubric">Логи</div>
+        <h2><a href="//www.qrz.com/db/R7HJ">Страничка R7HJ и R7HJ/0 на qrz.com</a></h2>
+        <p class="lede">Проведённые QSO синхронизируются между qrz.com, qso.su, hamlog, eqsl, lotw.</p>
+    </article>
+
+    <article>
+        <div class="rubric">Сайт</div>
+        <h2><a href="//r7hj.layero.app/">Мои статьи</a></h2>
+        <p class="lede">Статьи на разные радиолюбительские темы. Раньше был другой сайт, но теперь он не работает.</p>
+    </article>
+
+    <article>
+        <div class="rubric">GitHub</div>
+        <h2><a href="//github.com/R7HJ/YSF_Reflector_Dashboard">YSF Dashboard на PHP 8</a></h2>
+        <p class="lede">Информационная панель для YSF-рефлектора, без лишних зависимостей, на современном PHP.</p>
+    </article>
+
+    <article>
+        <div class="rubric">GitHub</div>
+        <h2><a href="//github.com/R7HJ/cw-beacon">Телеграфный маяк на Arduino Pro Mini</a></h2>
+        <p class="lede">Простейший CW-маяк на плате arduino.</p>
+    </article>
+
+    <article>
+        <div class="rubric">GitHub</div>
+        <h2><a href="//github.com/R7HJ/pty-bridge">Создаём пару виртуальных портов</a></h2>
+        <p class="lede">Связываем две программы (на Linux) между собой, через пару pseudo-terminal устройств.</p>
+    </article>
+
+    <article>
+        <div class="rubric">Споты</div>
+        <h2><a href="http://176.192.125.149:88/wsjtx.html">WSJT-X споты</a></h2>
+        <p class="lede">Так как pskreport не всегда доступен, я написал свою страничку с FT8-спотами принятыми R7HJ/0 в QP52.. Работает с мая по ноябрь!</p>
+    </article>
+
+
+
+    <footer>
+        R7HJ · встретимся в эфире · 73!
+    </footer>
+
+</div>
+
 </body>
 </html>
