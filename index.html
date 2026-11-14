@@ -85,6 +85,15 @@
         }
         article h2 a:hover { color: var(--accent); }
 
+        .float-right {
+            float: right;
+            width: 300px;             /* оптимальная ширина, чтобы осталось место для текста слева */
+            max-width: 100%;
+            height: auto;
+            margin: 4px 0 10px 18px;  /* отступ слева от текста и снизу */
+            border: 1px solid var(--line);
+            padding: 3px;
+        }
         .rubric {
             font-size: 0.7rem;
             font-weight: 700;
@@ -113,6 +122,7 @@
         article::after {
             content: "";
             display: block;
+            clear: both;              /* <-- ДОБАВИТЬ ЭТУ СТРОКУ */
             border-bottom: 1px solid var(--ink-soft);
             opacity: 0.4;
             margin-top: 25px;
@@ -155,7 +165,9 @@
     <article>
         <div class="rubric">Логи</div>
         <h2><a href="//www.qrz.com/db/R7HJ">Страничка на qrz.com</a></h2>
-        <p class="lede">Проведённые QSO синхронизируются между логами qrz.com, qso.su, hamlog, eqsl, lotw. Возможна задержка!</p>
+        <img class="float-right" src="r7hj0.webp" alt="Карта QTH-локаторов R7HJ">
+        <p class="lede">Проведённые QSO синхронизируются между логами qrz.com, qso.su, hamlog, eqsl, lotw.</p>
+        <p>Работаю из локаторов: QP62bi, QP52ji, QP42ct, QP32oa и из других.</p>
     </article>
 
     <article>
